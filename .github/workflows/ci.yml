@@ -29,6 +29,8 @@ jobs:
         run: pnpm --filter @gotgenes/pi-subagents run verify:public-types
 
       - name: Lint
+        env:
+          NODE_OPTIONS: "--max-old-space-size=4096"
         run: pnpm run lint
 
       - name: Test
