@@ -1,6 +1,6 @@
 {
-  "name": "@gotgenes/pi-subagents",
-  "version": "18.0.1",
+  "name": "@ashebanow/pi-gotgenes-subagent",
+  "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
@@ -24,19 +24,20 @@
     "#src/*": "./src/*",
     "#test/*": "./test/*"
   },
-  "description": "A focused, in-process sub-agent core for pi — autonomous agents plus a typed API and lifecycle events other extensions build on. Friendly fork of @tintinweb/pi-subagents.",
+  "description": "Soft fork of @gotgenes/pi-subagents — a focused, in-process sub-agent core for pi with Reviewer agent added. Autonomous agents plus a typed API and lifecycle events other extensions build on.",
   "author": {
-    "name": "Chris Lasher"
+    "name": "Andrew Shebanow",
+    "email": "ashebanow@cattivi.com"
   },
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gotgenes/pi-packages.git",
+    "url": "git+https://github.com/ashebanow/pi-gotgenes-subagent.git",
     "directory": "packages/pi-subagents"
   },
-  "homepage": "https://github.com/gotgenes/pi-packages/tree/main/packages/pi-subagents#readme",
+  "homepage": "https://github.com/ashebanow/pi-gotgenes-subagent/tree/main/packages/pi-subagents#readme",
   "bugs": {
-    "url": "https://github.com/gotgenes/pi-packages/issues"
+    "url": "https://github.com/ashebanow/pi-gotgenes-subagent/issues"
   },
   "keywords": [
     "pi-package",
@@ -85,8 +86,6 @@
   "pi": {
     "extensions": [
       "./src/index.ts"
-    ],
-    "video": "https://github.com/gotgenes/pi-subagents/raw/main/media/demo.mp4",
-    "image": "https://github.com/gotgenes/pi-subagents/raw/main/media/screenshot.png"
+    ]
   }
 }
