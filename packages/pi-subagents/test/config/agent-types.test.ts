@@ -25,6 +25,7 @@ describe("AgentTypeRegistry", () => {
       const registry = makeRegistry();
       expect(registry.isValidType("general-purpose")).toBe(true);
       expect(registry.isValidType("Explore")).toBe(true);
+      expect(registry.isValidType("Reviewer")).toBe(true);
       expect(registry.isValidType("Plan")).toBe(true);
     });
 
@@ -129,6 +130,7 @@ describe("AgentTypeRegistry", () => {
       const types = registry.getAvailableTypes();
       expect(types).toContain("general-purpose");
       expect(types).toContain("Explore");
+      expect(types).toContain("Reviewer");
       expect(types).toContain("Plan");
     });
 
@@ -164,6 +166,7 @@ describe("AgentTypeRegistry", () => {
       const names = registry.getDefaultAgentNames();
       expect(names).toContain("general-purpose");
       expect(names).toContain("Explore");
+      expect(names).toContain("Reviewer");
       expect(names).toContain("Plan");
       expect(names).not.toContain("auditor");
     });
@@ -223,6 +226,12 @@ describe("AgentTypeRegistry", () => {
       expect(names).toEqual(["read", "bash", "grep", "find", "ls"]);
     });
 
+    it("returns read tools + edit/write for Reviewer", () => {
+      const registry = makeRegistry();
+      const names = registry.getToolNamesForType("Reviewer");
+      expect(names).toEqual(["read", "bash", "grep", "find", "ls", "edit", "write"]);
+    });
+
     it("returns custom tool names for user agent", () => {
       const registry = makeRegistry(
         new Map([["auditor", makeAgentConfig({ name: "auditor", builtinToolNames: ["read", "grep"] })]])
@@ -242,8 +251,8 @@ describe("AgentTypeRegistry", () => {
       expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toBeDefined();
     });
 
-    it("contains the three built-in default names", () => {
-      expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toEqual(["general-purpose", "Explore", "Plan"]);
+    it("contains the four built-in default names", () => {
+      expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toEqual(["general-purpose", "Explore", "Reviewer", "Plan"]);
     });
 
     it("is no longer exported from types.ts", async () => {
@@ -251,6 +260,54 @@ describe("AgentTypeRegistry", () => {
       // as a named export from types.ts anymore.
       const typesModule = await import("#src/types");
       expect((typesModule as Record<string, unknown>).DEFAULT_AGENT_NAMES).toBeUndefined();
+    });
+  });
+
+  describe("Reviewer agent", () => {
+    it("is registered as a default agent", () => {
+      const registry = makeRegistry();
+      const defaults = registry.getDefaultAgentNames();
+      expect(defaults).toContain("Reviewer");
+    });
+
+    it("resolves case-insensitively", () => {
+      const registry = makeRegistry();
+      expect(registry.resolveType("reviewer")).toBe("Reviewer");
+      expect(registry.resolveType("REVIEWER")).toBe("Reviewer");
+    });
+
+    it("has promptMode replace", () => {
+      const registry = makeRegistry();
+      const config = registry.resolveAgentConfig("Reviewer");
+      expect(config.promptMode).toBe("replace");
+    });
+
+    it("has thinking set to high", () => {
+      const registry = makeRegistry();
+      const config = registry.resolveAgentConfig("Reviewer");
+      expect(config.thinking).toBe("high");
+    });
+
+    it("inherits context by default", () => {
+      const registry = makeRegistry();
+      const config = registry.resolveAgentConfig("Reviewer");
+      expect(config.inheritContext).toBe(true);
+    });
+
+    it("can be disabled by user override", () => {
+      const registry = makeRegistry(
+        new Map([["Reviewer", makeAgentConfig({ name: "Reviewer", enabled: false })]])
+      );
+      expect(registry.isValidType("Reviewer")).toBe(false);
+    });
+
+    it("is replaced by user override with same name", () => {
+      const registry = makeRegistry(
+        new Map([["Reviewer", makeAgentConfig({ name: "Reviewer", description: "Custom reviewer", thinking: "medium" })]])
+      );
+      const config = registry.resolveAgentConfig("Reviewer");
+      expect(config.description).toBe("Custom reviewer");
+      expect(config.thinking).toBe("medium");
     });
   });
 
