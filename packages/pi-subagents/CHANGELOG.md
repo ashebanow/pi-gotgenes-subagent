@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.1.0](https://github.com/ashebanow/pi-gotgenes-subagent/compare/pi-subagents-v18.0.1...pi-subagents-v18.1.0) (2026-07-14)
+
+
+### Features
+
+* add Reviewer built-in agent adapted from nicobailon/pi-subagents ([99f5721](https://github.com/ashebanow/pi-gotgenes-subagent/commit/99f57215f81a82e5870236b9bca356577862a46d))
+
+
+### Miscellaneous Chores
+
+* rename package for npm publish as @ashebanow/pi-gotgenes-subagent ([caee768](https://github.com/ashebanow/pi-gotgenes-subagent/commit/caee76834546084c0a13aebe123c6a18de7786da))
+
 ## [18.0.1](https://github.com/gotgenes/pi-packages/compare/pi-subagents-v18.0.0...pi-subagents-v18.0.1) (2026-06-24)
 
 
