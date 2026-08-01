@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [18.2.0](https://github.com/ashebanow/pi-gotgenes-subagent/compare/pi-subagents-v18.1.0...pi-subagents-v18.2.0) (2026-08-01)
+
+
+### Features
+
+* **pi-subagents:** extract the Reviewer agent to a .md file and deepen its review method ([6243dc0](https://github.com/ashebanow/pi-gotgenes-subagent/commit/6243dc03ac9d3fd9e19a08aab0f99690a83cf8fa))
+* **pi-subagents:** extract the Reviewer agent to a .md file and deepen its review method ([ea433d0](https://github.com/ashebanow/pi-gotgenes-subagent/commit/ea433d05ee3b49e16aae8b516d942908b25aa0b4))
+
 ## [18.1.0](https://github.com/ashebanow/pi-gotgenes-subagent/compare/pi-subagents-v18.0.1...pi-subagents-v18.1.0) (2026-07-14)
 
 
