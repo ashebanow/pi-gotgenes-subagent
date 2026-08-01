@@ -5,6 +5,7 @@
  * User agents override defaults with the same name. Disabled agents are kept but excluded from spawning.
  */
 
+import { BUILTIN_TOOL_NAMES } from "#src/config/builtin-tools";
 import { DEFAULT_AGENTS } from "#src/config/default-agents";
 import type { AgentConfig } from "#src/types";
 
@@ -129,5 +130,5 @@ export class AgentTypeRegistry implements AgentConfigLookup {
   }
 }
 
-/** All known built-in tool names. */
-export const BUILTIN_TOOL_NAMES: string[] = ["read", "bash", "edit", "write", "grep", "find", "ls"];
+/** Re-exported so existing call sites keep importing tool names from the registry module. */
+export { BUILTIN_TOOL_NAMES };

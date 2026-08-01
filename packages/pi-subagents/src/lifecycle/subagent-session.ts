@@ -16,7 +16,7 @@ import {
   type ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
 import type { ChildLifecyclePublisher } from "#src/lifecycle/child-lifecycle";
-import { normalizeMaxTurns } from "#src/lifecycle/turn-limits";
+import { normalizeMaxTurns, TURN_LIMIT_STEER_MESSAGE } from "#src/lifecycle/turn-limits";
 import { getSessionContextPercent, type SessionStatsLike } from "#src/lifecycle/usage";
 import { extractText } from "#src/session/context";
 import { getAgentConversation } from "#src/session/conversation";
@@ -97,9 +97,7 @@ export class SubagentSession {
         if (maxTurns != null) {
           if (!softLimitReached && turnCount >= maxTurns) {
             softLimitReached = true;
-            void session.steer(
-              "You have reached your turn limit. Wrap up immediately - provide your final answer now.",
-            );
+            void session.steer(TURN_LIMIT_STEER_MESSAGE);
           } else if (softLimitReached && turnCount >= maxTurns + (opts.graceTurns ?? 5)) {
             aborted = true;
             void session.abort();

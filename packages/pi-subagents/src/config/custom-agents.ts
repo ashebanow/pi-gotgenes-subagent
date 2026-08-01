@@ -5,7 +5,8 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { basename, join } from "node:path";
 import { getAgentDir, parseFrontmatter } from "@earendil-works/pi-coding-agent";
-import { BUILTIN_TOOL_NAMES } from "#src/config/agent-types";
+import { BUILTIN_TOOL_NAMES } from "#src/config/builtin-tools";
+import { csvList, nonNegativeInt, optionalBool, str } from "#src/config/frontmatter-fields";
 import { debugLog } from "#src/debug";
 import type { AgentConfig, ThinkingLevel } from "#src/types";
 
@@ -63,44 +64,10 @@ function loadFromDir(dir: string, agents: Map<string, AgentConfig>, source: "pro
       maxTurns: nonNegativeInt(fm.max_turns),
       systemPrompt: body.trim(),
       promptMode: fm.prompt_mode === "replace" ? "replace" : "append",
-      inheritContext: fm.inherit_context != null ? fm.inherit_context === true : undefined,
-      runInBackground: fm.run_in_background != null ? fm.run_in_background === true : undefined,
+      inheritContext: optionalBool(fm.inherit_context),
+      runInBackground: optionalBool(fm.run_in_background),
       enabled: fm.enabled !== false,  // default true; explicitly false disables
       source,
     });
   }
-}
-
-// ---- Field parsers ----
-// All follow the same convention: omitted → default, "none"/empty → nothing, value → exact.
-
-/** Extract a string or undefined. */
-function str(val: unknown): string | undefined {
-  return typeof val === "string" ? val : undefined;
-}
-
-/** Extract a non-negative integer or undefined. 0 means unlimited for max_turns. */
-function nonNegativeInt(val: unknown): number | undefined {
-  return typeof val === "number" && val >= 0 ? val : undefined;
-}
-
-/**
- * Parse a raw CSV field value into items, or undefined if absent/empty/"none".
- */
-function parseCsvField(val: unknown): string[] | undefined {
-  if (val === undefined || val === null) return undefined;
-  // eslint-disable-next-line @typescript-eslint/no-base-to-string -- val is already narrowed past null/undefined; String() is the intended coercion here
-  const s = String(val).trim();
-  if (!s || s === "none") return undefined;
-  const items = s.split(",").map(t => t.trim()).filter(Boolean);
-  return items.length > 0 ? items : undefined;
-}
-
-/**
- * Parse a comma-separated list field with defaults.
- * omitted → defaults; "none"/empty → []; csv → listed items.
- */
-function csvList(val: unknown, defaults: string[]): string[] {
-  if (val === undefined || val === null) return defaults;
-  return parseCsvField(val) ?? [];
 }
