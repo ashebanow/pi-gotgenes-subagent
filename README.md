@@ -87,13 +87,15 @@ pnpm run lint:fix # auto-fix lint issues
 
 ### Reviewing changes per package
 
-`scripts/hunk-pkg-diff.sh <package-name> [hunk-options...]` reviews the working-tree diff of a single package against its most recent release tag, scoped to that package's directory, using [Hunk](https://github.com/modem-dev/hunk).
-It resolves the latest `<component>-v<version>` tag and runs `hunk diff <tag> -- packages/<package>`.
+`scripts/difft-pkg-diff.sh <package-name> [difft-options...]` reviews the working-tree diff of a single package against its most recent release tag, scoped to that package's directory, using [difftastic](https://difftastic.wilfred.me.uk/).
+It resolves the latest `<component>-v<version>` tag and runs `GIT_EXTERNAL_DIFF=difft git diff <tag> -- packages/<package>`.
 
 ```bash
-scripts/hunk-pkg-diff.sh pi-subagents
-scripts/hunk-pkg-diff.sh pi-permission-system --mode split
+scripts/difft-pkg-diff.sh pi-subagents
+scripts/difft-pkg-diff.sh pi-permission-system --display inline
 ```
+
+Only tracked files appear; record new files with `git add -N packages/<package>` first if you want them reviewed too.
 
 The tag glob is `<package>-v*` (not `<package>-*`) so `pi-subagents` does not match the sibling `pi-subagents-worktrees` tags.
 
