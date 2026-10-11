@@ -39,6 +39,11 @@
       "skills": []
     },
     { "source": "npm:@gotgenes/pi-nocd", "extensions": [], "skills": [] },
+    {
+      "source": "npm:@ashebanow/pi-gotgenes-subagent",
+      "extensions": [],
+      "skills": []
+    },
     { "source": "npm:pi-ask-user", "extensions": [], "skills": [] },
 
     "npm:pi-prompt-template-model",
