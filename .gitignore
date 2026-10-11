@@ -55,3 +55,6 @@ vite.config.ts.timestamp-*
 .devenv*
 .direnv
 result
+
+# pi background-task artifacts
+.pi/tasks/
