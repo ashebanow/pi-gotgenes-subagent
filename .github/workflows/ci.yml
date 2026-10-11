@@ -26,7 +26,7 @@ jobs:
         run: pnpm -r run check
 
       - name: Verify public types are consumable from the package
-        run: pnpm --filter @gotgenes/pi-subagents run verify:public-types
+        run: pnpm --filter @ashebanow/pi-gotgenes-subagent run verify:public-types
 
       - name: Verify pi-permission-system public types are consumable from the package
         run: pnpm --filter @gotgenes/pi-permission-system run verify:public-types
