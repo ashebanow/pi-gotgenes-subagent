@@ -4,9 +4,17 @@
  * These are always available but can be overridden by user .md files with the same name.
  */
 
+import { loadEmbeddedAgent } from "#src/config/embedded-agents";
 import type { AgentConfig } from "#src/types";
 
 const READ_ONLY_TOOLS = ["read", "bash", "grep", "find", "ls"];
+
+/**
+ * The Reviewer's prompt is long and iterated on frequently, so it lives in
+ * `agents/reviewer.md` rather than inline here: editable without touching
+ * extension source, and without escaping backticks in a template literal.
+ */
+const REVIEWER = loadEmbeddedAgent("reviewer", "Reviewer");
 
 export const DEFAULT_AGENTS: Map<string, AgentConfig> = new Map([
   [
@@ -66,6 +74,7 @@ Use Bash ONLY for read-only operations: ls, git status, git log, git diff, find,
       isDefault: true,
     },
   ],
+  ["Reviewer", REVIEWER],
   [
     "Plan",
     {

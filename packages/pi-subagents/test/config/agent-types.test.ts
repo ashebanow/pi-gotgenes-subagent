@@ -265,8 +265,13 @@ describe("AgentTypeRegistry", () => {
       expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toBeDefined();
     });
 
-    it("contains the three built-in default names", () => {
-      expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toEqual(["general-purpose", "Explore", "Plan"]);
+    it("contains the four built-in default names", () => {
+      expect(AgentTypeRegistry.DEFAULT_AGENT_NAMES).toEqual([
+        "general-purpose",
+        "Explore",
+        "Reviewer",
+        "Plan",
+      ]);
     });
 
     it("is no longer exported from types.ts", async () => {
