@@ -1,5 +1,5 @@
 {
-  "name": "@gotgenes/pi-subagents",
+  "name": "@ashebanow/pi-gotgenes-subagent",
   "version": "23.4.0",
   "type": "module",
   "exports": {
