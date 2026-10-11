@@ -19,6 +19,7 @@ import {
 import type { ChildLifecyclePublisher } from "#src/lifecycle/child-lifecycle";
 import { emitChildSessionShutdown } from "#src/lifecycle/child-shutdown";
 import {
+  budgetWarningText,
   normalizeMaxTurns,
   type TurnBudget,
   type TurnBudgetAction,
@@ -369,15 +370,6 @@ const TURN_BUDGET_WARNING_TYPE = "subagents:turn-budget-warning";
 
 /** Wrap-up turns when the run config names none; matches the setting's default. */
 const DEFAULT_WRAP_UP_TURNS = 2;
-
-/** The warning a child reads with `remaining` turns left, this coming one included. */
-function budgetWarningText(remaining: number): string {
-  const turns = remaining === 1 ? "1 turn" : `${remaining} turns`;
-  return (
-    `Turn budget: you have ${turns} left, including this one. ` +
-    "The harness stops you after that. Finish your work and give your final answer within that budget."
-  );
-}
 
 /** How a `turn_end` bears on the budget: whether it failed, and whether the agent loop continues. */
 function turnOutcome(event: Extract<AgentSessionEvent, { type: "turn_end" }>): TurnOutcome {

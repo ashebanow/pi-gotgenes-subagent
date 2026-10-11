@@ -131,3 +131,19 @@ export function normalizeMaxTurns(n: number | undefined): number | undefined {
 export function isBelowMinimumTurns(n: number | undefined): n is number {
   return n != null && n !== 0 && n < MIN_MAX_TURNS;
 }
+
+/**
+ * The closing sentence of the budget warning, invariant across the turns remaining.
+ *
+ * An agent whose prompt has to recognise the warning quotes this sentence
+ * verbatim (`src/config/agents/reviewer.md`), so it lives here rather than inside
+ * the message string: a prompt can pin an invariant, but not a turn count.
+ */
+export const TURN_BUDGET_WARNING_TAIL =
+  "The harness stops you after that. Finish your work and give your final answer within that budget.";
+
+/** The warning a child reads with `remaining` turns left, this coming one included. */
+export function budgetWarningText(remaining: number): string {
+  const turns = remaining === 1 ? "1 turn" : `${remaining} turns`;
+  return `Turn budget: you have ${turns} left, including this one. ${TURN_BUDGET_WARNING_TAIL}`;
+}
