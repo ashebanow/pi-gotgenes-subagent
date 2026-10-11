@@ -3,11 +3,6 @@
   "name": "@gotgenes/pi-packages",
   "type": "module",
   "description": "Monorepo for @gotgenes pi packages",
-  "pi": {
-    "extensions": [
-      "./packages/pi-subagents/src/index.ts"
-    ]
-  },
   "packageManager": "pnpm@11.25.0",
   "engines": {
     "node": ">=22"
